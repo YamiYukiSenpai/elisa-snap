@@ -1,0 +1,41 @@
+name: elisa
+base: core18
+version: 0.4.2
+summary: An easy to use music player by the KDE community
+description: |
+  Elisa is a music player developed by the KDE community that strives to be simple and nice to use. We also recognize that we need a flexible product to account for the different workflows and use-cases of our users. We focus on a very good integration with the Plasma desktop of the KDE community without compromising the support for other platforms (other Linux desktop environments, Windows and Android). We are creating a reliable product that is a joy to use and respects our users privacy. As such, we will prefer to support online services where users are in control of their data.
+grade: devel
+confinement: devmode
+
+plugs:
+  kde-frameworks-5-plug:
+    content: kde-frameworks-5-core18-all
+    interface: content
+    default-provider: kde-frameworks-5-core18
+    target: $SNAP/kf5
+    
+parts:
+  elisa:
+    build-snaps:
+      - kde-frameworks-5-core18-sdk
+    after:
+      - kde-frameworks-5-env
+    plugin: cmake
+    source: https://github.com/KDE/elisa/archive/v$SNAPCRAFT_PROJECT_VERSION.tar.gz
+  kde-frameworks-5-env:
+    plugin: dump
+    source: https://github.com/apachelogger/kf5-snap-env.git
+
+apps:
+  palemoon:
+    command: elisa
+    plugs:
+      - kde-frameworks-5-plug
+      - desktop
+      - desktop-legacy
+      - unity7
+      - home
+      - x11
+      - opengl
+      - pulseaudio
+      - network-bind
