@@ -1,0 +1,118 @@
+
+name: elisa
+base: core18
+version: 0.4.2
+summary: An easy to use music player by the KDE community
+description: |
+  Elisa is a music player developed by the KDE community that strives to be simple and nice to use. We also recognize that we need a flexible product to account for the different workflows and use-cases of our users. We focus on a very good integration with the Plasma desktop of the KDE community without compromising the support for other platforms (other Linux desktop environments, Windows and Android). We are creating a reliable product that is a joy to use and respects our users privacy. As such, we will prefer to support online services where users are in control of their data.
+grade: devel
+confinement: devmode
+
+plugs:
+  kde-frameworks-5-plug:
+    content: kde-frameworks-5-core18-all
+    interface: content
+    default-provider: kde-frameworks-5-core18:kde-frameworks-5-core18-slot
+    target: kf5
+
+slots:
+  session-dbus-interface:
+    interface: dbus
+    name: org.kde.elisa
+    bus: session
+
+parts:
+  elisa:
+    build-snaps:
+      - kde-frameworks-5-core18-sdk
+    build-packages:
+      - build-essential
+      #- libvlccore-dev
+      #- libvlc-dev
+      #- extra-cmake-modules
+      #- qtbase5-dev
+      #- qtdeclarative5-dev
+      #- qtmultimedia5-dev
+      #- libqt5svg5-dev
+      #- qtquickcontrols2-5-dev
+      #- cmake-data
+      #- libkf5coreaddons-dev
+      #- libkf5config-dev
+      #- libkf5declarative-dev
+      #- baloo-kf5-dev
+      #- gettext
+      #- libkf5filemetadata-dev
+      #- libkf5xmlgui-dev
+      #- libkf5configwidgets-dev
+      #- libkf5kcmutils-dev
+      #- libkf5package-dev
+      #- libkf5kio-dev
+      #- libkf5dbusaddons-dev
+      #- kirigami2-dev
+      #- libkf5doctools-dev
+      #- libkf5bookmarks-dev
+    #stage-packages:
+      #- libqt5network5
+      #- libqt5qml5
+      #- libqt5quick5
+      #- libqt5test5
+      #- libqt5sql5
+      #- libqt5multimedia5
+      #- libqt5svg5
+      #- libqt5widgets5
+      #- libqt5quicktest5
+      #- libqt5concurrent5
+      #- libqt5quickcontrols2-5
+      #- libkf5kirigami2-5
+      #- gettext
+      #- libkf5coreaddons5
+      #- libqt5core5a
+      #- libkf5declarative5
+      #- libkf5baloo5
+      #- libkf5balooengine5
+      #- libkf5filemetadata3
+      #- libkf5xmlgui5
+      #- libkf5configwidgets5
+      #- libkf5kcmutils5
+      #- libkf5package5
+      #- libkf5kiocore5
+      #- libvlc5
+      #- libqt5dbus5
+      #- libkf5dbusaddons5
+      #- qml-module-qtqml-models2
+      #- qml-module-qtquick-controls
+      #- qml-module-qtquick-dialogs
+      #- qml-module-qtquick-layouts
+      #- qml-module-qtquick2
+      #- libqt5quickwidgets5
+      #- qml-module-qt-labs-platform
+      #- qml-module-org-kde-kcm
+      #- libkf5doctools5
+      #- libkf5bookmarks5
+      #- libkf5kiofilewidgets5
+    plugin: cmake
+    source: https://github.com/KDE/elisa/archive/v$SNAPCRAFT_PROJECT_VERSION.tar.gz
+    configflags:
+      - "-DCMAKE_INSTALL_PREFIX=/usr"
+    parse-info:
+      - usr/share/metainfo/org.kde.elisa.appdata.xml
+  kde-frameworks-5-env:
+    plugin: dump
+    source: https://github.com/apachelogger/kf5-snap-env.git
+
+apps:
+  elisa:
+    command: kf5-launch elisa
+    plugs:
+      - kde-frameworks-5-plug
+      - desktop
+      - desktop-legacy
+      - unity7
+      - home
+      - x11
+      - opengl
+      - pulseaudio
+      - network-bind
+      - wayland
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/elisa
