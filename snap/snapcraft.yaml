@@ -27,75 +27,12 @@ parts:
       - kde-frameworks-5-core18-sdk
     build-packages:
       - build-essential
-      - extra-cmake-modules
-      - qtbase5-dev
-      - qtdeclarative5-dev
-      - qtmultimedia5-dev
-      - libqt5svg5-dev
-      - qtquickcontrols2-5-dev
-      - cmake-data
-      - libkf5coreaddons-dev
-      - libkf5config-dev
-      - libkf5declarative-dev
-      - baloo-kf5-dev
-      - gettext
-      - libkf5filemetadata-dev
-      - libkf5xmlgui-dev
-      - libkf5configwidgets-dev
-      - libkf5kcmutils-dev
-      - libkf5package-dev
-      - libkf5kio-dev
-      - libvlc-dev
-      - libkf5dbusaddons-dev
-      - kirigami2-dev
-      - libvlccore-dev
-      - libkf5doctools-dev
-      - libkf5bookmarks-dev
-    stage-packages:
-      - libqt5network5
-      - libqt5qml5
-      - libqt5quick5
-      - libqt5test5
-      - libqt5sql5
-      - libqt5multimedia5
-      - libqt5svg5
-      - libqt5widgets5
-      - libqt5quicktest5
-      - libqt5concurrent5
-      - libqt5quickcontrols2-5
-      - libkf5kirigami2-5
-      - gettext
-      - libkf5coreaddons5
-      - libqt5core5a
-      - libkf5declarative5
-      - libkf5baloo5
-      - libkf5balooengine5
-      - libkf5filemetadata3
-      - libkf5xmlgui5
-      - libkf5configwidgets5
-      - libkf5kcmutils5
-      - libkf5package5
-      - libkf5kiocore5
-      - libvlc5
-      - libqt5dbus5
-      - libkf5dbusaddons5
-      - qml-module-qtqml-models2
-      - qml-module-qtquick-controls
-      - qml-module-qtquick-dialogs
-      - qml-module-qtquick-layouts
-      - qml-module-qtquick2
-      - libqt5quickwidgets5
-      - qml-module-qt-labs-platform
-      - qml-module-org-kde-kcm
-      - libkf5doctools5
-      - libkf5bookmarks5
-      - libkf5kiofilewidgets5
-    after:
-      - kde-frameworks-5-env
     plugin: cmake
     source: https://github.com/KDE/elisa/archive/v$SNAPCRAFT_PROJECT_VERSION.tar.gz
     configflags:
       - "-DCMAKE_INSTALL_PREFIX=/usr"
+    parse-info:
+      - usr/share/metainfo/org.kde.elisa.appdata.xml
   kde-frameworks-5-env:
     plugin: dump
     source: https://github.com/apachelogger/kf5-snap-env.git
@@ -114,4 +51,5 @@ apps:
       - pulseaudio
       - network-bind
       - wayland
-
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/elisa
