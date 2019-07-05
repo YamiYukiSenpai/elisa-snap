@@ -12,8 +12,14 @@ plugs:
   kde-frameworks-5-plug:
     content: kde-frameworks-5-core18-all
     interface: content
-    default-provider: kde-frameworks-5-core18
-    target: $SNAP/kf5
+    default-provider: kde-frameworks-5-core18:kde-frameworks-5-core18-slot
+    target: kf5
+
+slots:
+  session-dbus-interface:
+    interface: dbus
+    name: org.kde.elisa
+    bus: session
 
 parts:
   elisa:
@@ -96,7 +102,7 @@ parts:
 
 apps:
   elisa:
-    command: elisa
+    command: kf5-launch elisa
     plugs:
       - kde-frameworks-5-plug
       - desktop
