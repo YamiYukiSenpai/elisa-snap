@@ -30,6 +30,8 @@ parts:
       - kirigami2-dev
       - libvlc-dev
       - libkf5doctools-dev
+    stage-packages:
+      - libvlc5
     plugin: cmake
     source: https://github.com/KDE/elisa/archive/v$SNAPCRAFT_PROJECT_VERSION.tar.gz
     configflags:
@@ -54,5 +56,7 @@ apps:
       - pulseaudio
       - network-bind
       - wayland
+      - bluez
     environment:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/elisa
+      HOME: /home/$USER
